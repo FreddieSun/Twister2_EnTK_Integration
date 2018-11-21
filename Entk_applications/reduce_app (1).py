@@ -19,9 +19,11 @@ if __name__ == '__main__':
 
     # Create a Pipeline object
     p = Pipeline()
+    p.name ='Pipeline 1'
 
     # Create a Stage object
     s1 = Stage()
+    s1.name = 'Stage 1'
 
     # Create a Task object
     t1 = Task()
@@ -54,7 +56,7 @@ if __name__ == '__main__':
     t4 = Task()
     t4.name = 'Compute 1'  # Assign a name to the task (optional, do not use ',' or '_')
     # Copy data from the task in the first stage to the current task's location
-    t4.copy_input_data = ['$Pipeline_%s_Stage_%s_Task_%s/output1.txt' % (p.uid, s1.uid, t1.uid)]
+    t4.copy_input_data = ['$Pipeline_%s_Stage_%s_Task_%s/output1.txt' % ('Pipeline 1', 'Stage 1', 'Generator 1')]
     t4.executable = ['python3']  # Assign executable to the task
     t4.arguments = ['/home/divyaprakash/EnTK/share/radical.entk/user_guide/scripts/compute.py', 'output1.txt']  # Assign arguments for the task executable
     
@@ -63,7 +65,7 @@ if __name__ == '__main__':
     t5 = Task()
     t5.name = 'Compute 2'  # Assign a name to the task (optional, do not use ',' or '_')
     # Copy data from the task in the first stage to the current task's location
-    t5.copy_input_data = ['$Pipeline_%s_Stage_%s_Task_%s/output2.txt' % (p.uid, s1.uid, t2.uid)]
+    t5.copy_input_data = ['$Pipeline_%s_Stage_%s_Task_%s/output2.txt' % ('Pipeline 1', 'Stage 1', 'Generator 2')]
     t5.executable = ['python3']  # Assign executable to the task
     t5.arguments = ['/home/divyaprakash/EnTK/share/radical.entk/user_guide/scripts/compute.py', 'output2.txt']  # Assign arguments for the task executable
     
@@ -71,7 +73,7 @@ if __name__ == '__main__':
     t6 = Task()
     t6.name = 'Compute 3'  # Assign a name to the task (optional, do not use ',' or '_')
     # Copy data from the task in the first stage to the current task's location
-    t6.copy_input_data = ['$Pipeline_%s_Stage_%s_Task_%s/output3.txt' % (p.uid, s1.uid, t3.uid)]
+    t6.copy_input_data = ['$Pipeline_%s_Stage_%s_Task_%s/output3.txt' % ('Pipeline 1', 'Stage 1', 'Generator 3')]
     t6.executable = ['python3']  # Assign executable to the task
     t6.arguments = ['/home/divyaprakash/EnTK/share/radical.entk/user_guide/scripts/compute.py', 'output3.txt']  # Assign arguments for the task executable
     

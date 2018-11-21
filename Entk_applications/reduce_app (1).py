@@ -15,38 +15,62 @@ if os.environ.get('RADICAL_ENTK_VERBOSE') == None:
 hostname = os.environ.get('RMQ_HOSTNAME', 'localhost')
 port = os.environ.get('RMQ_PORT', 5672)
 
+def constructTask(url):
+    response = requests.get(url)
+    response = response.json()
+
+    sourceParallelism = response['sourceParallelism']
+
+    itr = response['itr']
+    # Create a Stage object
+    s1 = Stage()
+    s1.name = 'Stage 1'
+
+    for i in range sourceParallelism:
+        t = Task()
+        t.name = 'Generator ' + str(i)
+        t.executable = ['python3']  
+        t.arguments = ['/home/divyaprakash/EnTK/share/radical.entk/user_guide/scripts/generator'+i+'.py', sourceParallelism]
+
+        s1.add_task(t)
+
+    return stage
+
+
 if __name__ == '__main__':
 
     # Create a Pipeline object
     p = Pipeline()
     p.name ='Pipeline 1'
 
-    # Create a Stage object
-    s1 = Stage()
-    s1.name = 'Stage 1'
+    # # Create a Stage object
+    # s1 = Stage()
+    # s1.name = 'Stage 1'
 
-    # Create a Task object
-    t1 = Task()
-    t1.name = 'Generator 1'        # Assign a name to the task (optional, do not use ',' or '_')
-    t1.executable = ['python3']   # Assign executable to the task
-    t1.arguments = ['/home/divyaprakash/EnTK/share/radical.entk/user_guide/scripts/generator1.py', '10']  # Assign arguments for the task executable
+    # # Create a Task object
+    # t1 = Task()
+    # t1.name = 'Generator 1'        # Assign a name to the task (optional, do not use ',' or '_')
+    # t1.executable = ['python3']   # Assign executable to the task
+    # t1.arguments = ['/home/divyaprakash/EnTK/share/radical.entk/user_guide/scripts/generator1.py', '10']  # Assign arguments for the task executable
 
-    # Create a Task object
-    t2 = Task()
-    t2.name = 'Generator 2'  # Assign a name to the task (optional, do not use ',' or '_')
-    t2.executable = ['python3']  # Assign executable to the task
-    t2.arguments = ['/home/divyaprakash/EnTK/share/radical.entk/user_guide/scripts/generator2.py', '10']  # Assign arguments for the task executable
+    # # Create a Task object
+    # t2 = Task()
+    # t2.name = 'Generator 2'  # Assign a name to the task (optional, do not use ',' or '_')
+    # t2.executable = ['python3']  # Assign executable to the task
+    # t2.arguments = ['/home/divyaprakash/EnTK/share/radical.entk/user_guide/scripts/generator2.py', '10']  # Assign arguments for the task executable
 
-    # Create a Task object
-    t3 = Task()
-    t3.name = 'Generator 3'  # Assign a name to the task (optional, do not use ',' or '_')
-    t3.executable = ['python3']  # Assign executable to the task
-    t3.arguments = ['/home/divyaprakash/EnTK/share/radical.entk/user_guide/scripts/generator3.py', '10']  # Assign arguments for the task executable
+    # # Create a Task object
+    # t3 = Task()
+    # t3.name = 'Generator 3'  # Assign a name to the task (optional, do not use ',' or '_')
+    # t3.executable = ['python3']  # Assign executable to the task
+    # t3.arguments = ['/home/divyaprakash/EnTK/share/radical.entk/user_guide/scripts/generator3.py', '10']  # Assign arguments for the task executable
 
-    # Add Task to the Stage
-    s1.add_tasks(t1)
-    s1.add_tasks(t2)
-    s1.add_tasks(t3)
+    # # Add Task to the Stage
+    # s1.add_tasks(t1)
+    # s1.add_tasks(t2)
+    # s1.add_tasks(t3)
+
+    s1 = constructTask()
 
     p.add_stages(s1)
 

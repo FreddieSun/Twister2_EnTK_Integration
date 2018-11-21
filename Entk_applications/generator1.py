@@ -5,6 +5,5 @@ script, value = argv
 file = open('output1.txt', 'w+')
 
 for i in range(int(value)):
-    a = random.randint(1, 10)
-    file.write("%d\n" % a)
+    file.write("%d\n" % 1)
 file.close()

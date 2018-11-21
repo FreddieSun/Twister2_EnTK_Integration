@@ -1,39 +1,70 @@
 package hello;
 
-public class Task {
+import java.io.*;
 
-    private String name;
-    private String executable;
-    private String arguments;
+//-itr 1 -workers 4 -size 8 -op "reduce" -stages 8,1 -verify
 
+public class Task implements Serializable{
+    private static final long serialVersionUID = 1L;
 
-    public Task(String name, String executable, String arguments) {
-        this.name = name;
-        this.executable = executable;
-        this.arguments = arguments;
+    private int sourceParallelism;
+
+    private int sinkParallelism;
+
+    private int itr;
+
+    private int workers;
+
+    private String operationMode;
+
+    public Task() {
     }
 
-    public String getName() {
-        return name;
+    public Task(int sourceParallelism, int sinkParallelism, int itr, int workers, String operationMode) {
+        this.sourceParallelism = sourceParallelism;
+        this.sinkParallelism = sinkParallelism;
+        this.itr = itr;
+        this.workers = workers;
+        this.operationMode = operationMode;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getSourceParallelism() {
+        return sourceParallelism;
     }
 
-    public String getExecutable() {
-        return executable;
+    public void setSourceParallelism(int sourceParallelism) {
+        this.sourceParallelism = sourceParallelism;
     }
 
-    public void setExecutable(String executable) {
-        this.executable = executable;
+    public int getSinkParallelism() {
+        return sinkParallelism;
     }
 
-    public String getArguments() {
-        return arguments;
+    public void setSinkParallelism(int sinkParallelism) {
+        this.sinkParallelism = sinkParallelism;
     }
 
-    public void setArguments(String arguments) {
-        this.arguments = arguments;
+    public int getItr() {
+        return itr;
+    }
+
+    public void setItr(int itr) {
+        this.itr = itr;
+    }
+
+    public int getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(int workers) {
+        this.workers = workers;
+    }
+
+    public String getOperationMode() {
+        return operationMode;
+    }
+
+    public void setOperationMode(String operationMode) {
+        this.operationMode = operationMode;
     }
 }
